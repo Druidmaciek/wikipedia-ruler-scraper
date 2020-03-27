@@ -19,3 +19,9 @@ def scrape_ruler(url: str) -> dict:
     data = {x.find("th").text: x.find("td").text.strip() for x in rows}
     data["Ruler"] = data_table.find("tr").text
     return data
+
+def scrape_rulers(url: str) -> List[dict]:
+    content = make_request(url)
+    soup = BeautifulSoup(content, "html.parser")
+    ruler_urls = [x.find("a")["href"] for x in soup.find_all("b")]
+    return [scrape_ruler(ruler_url) for ruler_url in ruler_urls]

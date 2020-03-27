@@ -1,3 +1,5 @@
+from typing import List
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -16,7 +18,7 @@ def scrape_ruler(url: str) -> dict:
     data_table = soup.find("table", {"class": "infobox vcard"})
     table_rows = data_table.find_all("tr")
     data_rows = filter(lambda row: row.find("th") and row.find("td"), table_rows)
-    data = {x.find("th").text: x.find("td").text.strip() for x in rows}
+    data = {x.find("th").text: x.find("td").text.strip() for x in data_rows}
     data["Ruler"] = data_table.find("tr").text
     return data
 

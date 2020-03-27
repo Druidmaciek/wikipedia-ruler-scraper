@@ -14,7 +14,7 @@ def make_request(url: str) -> str:
 def scrape_ruler(url: str) -> dict:
     """Parse Wikipedia ruler page for data."""
     content = make_request(url)
-    soup = BeautifulSoup(content "html.parser")
+    soup = BeautifulSoup(content, "html.parser")
     data_table = soup.find("table", {"class": "infobox vcard"})
     table_rows = data_table.find_all("tr")
     data_rows = filter(lambda row: row.find("th") and row.find("td"), table_rows)
